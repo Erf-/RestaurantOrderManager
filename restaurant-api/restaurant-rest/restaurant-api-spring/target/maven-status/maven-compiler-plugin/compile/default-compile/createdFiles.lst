@@ -1,4 +1,3 @@
 com/restaurant/rest/spring/RestaurantApplication.class
 com/restaurant/rest/spring/config/ApplicationConfig.class
 com/restaurant/rest/spring/controller/OrderController.class
-com/restaurant/rest/spring/config/AppConfig.class
