@@ -10,9 +10,6 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-/**
- * Implementation of the FoodRepository interface.
- */
 @Repository
 public class FoodRepositoryImpl implements FoodRepository {
     

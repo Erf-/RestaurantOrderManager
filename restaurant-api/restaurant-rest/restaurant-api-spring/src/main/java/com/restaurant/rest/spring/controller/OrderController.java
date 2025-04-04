@@ -1,6 +1,7 @@
 package com.restaurant.rest.spring.controller;
 
-import com.restaurant.rest.presentation.dto.OrderDTO;
+import com.restaurant.domain.model.Order;
+import com.restaurant.rest.presentation.dto.OrderDto;
 import com.restaurant.rest.presentation.mapper.OrderMapper;
 import com.restaurant.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-/**
- * REST controller for managing orders.
- */
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderController {
 
     private final OrderService orderService;
@@ -27,23 +25,10 @@ public class OrderController {
         this.orderMapper = orderMapper;
     }
 
-    /**
-     * POST /orders : Create a new order
-     *
-     * @param orderDTO the order to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new order
-     */
     @PostMapping
-    public ResponseEntity<OrderDTO> createOrder(@RequestBody OrderDTO orderDTO) {
-        // Convert DTO to domain object
-        var order = orderMapper.toDomain(orderDTO);
-        
-        // Process the order with service
-        var createdOrder = orderService.createOrder(order);
-        
-        // Convert back to DTO
-        var createdOrderDTO = orderMapper.toDTO(createdOrder);
-        
-        return new ResponseEntity<>(createdOrderDTO, HttpStatus.CREATED);
+    public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
+        Order order = orderMapper.toOrder(orderDto);
+        Order createdOrder = orderService.createOrder(order);
+        return new ResponseEntity<>(orderMapper.toOrderDto(createdOrder), HttpStatus.CREATED);
     }
 }

@@ -1,0 +1,10 @@
+com/restaurant/domain/repository/DrinkRepository.class
+com/restaurant/domain/model/Cook.class
+com/restaurant/domain/model/Barman.class
+com/restaurant/domain/model/Order.class
+com/restaurant/domain/repository/FoodRepository.class
+com/restaurant/domain/model/Dessert.class
+com/restaurant/domain/model/Waiter.class
+com/restaurant/domain/model/Drink.class
+com/restaurant/domain/repository/DessertRepository.class
+com/restaurant/domain/model/Food.class

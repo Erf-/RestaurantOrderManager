@@ -1,6 +1,7 @@
 package com.restaurant.rest.spring.config;
 
 import com.restaurant.rest.presentation.mapper.OrderMapper;
+import com.restaurant.rest.presentation.mapper.OrderMapperImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,6 +18,6 @@ public class AppConfig {
      */
     @Bean
     public OrderMapper orderMapper() {
-        return new OrderMapper();
+        return new OrderMapperImpl();
     }
 }

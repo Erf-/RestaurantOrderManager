@@ -1,4 +1,4 @@
-modules = ["java"]
+modules = ["java", "java-21"]
 
 [nix]
 channel = "stable-24_05"
@@ -50,3 +50,7 @@ args = "cd restaurant-api && mvn clean install && java -jar restaurant-rest/rest
 
 [deployment]
 run = ["sh", "-c", "cd restaurant-api && mvn clean install && cd restaurant-rest/restaurant-api-spring && mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-Dserver.port=5000\""]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
