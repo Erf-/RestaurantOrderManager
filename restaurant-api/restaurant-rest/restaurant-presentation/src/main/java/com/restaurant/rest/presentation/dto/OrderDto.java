@@ -4,21 +4,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDto {
-    private String id;
     private LocalDateTime orderTime;
     private String waiterId;
     private List<String> foodIds;
     private List<String> drinkIds;
     private List<String> dessertIds;
     private String status;
-    
-    public String getId() {
-        return id;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
-    }
     
     public LocalDateTime getOrderTime() {
         return orderTime;

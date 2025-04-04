@@ -6,7 +6,6 @@ import com.restaurant.rest.presentation.dto.OrderDto;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 public class OrderMapper {
     
@@ -16,7 +15,6 @@ public class OrderMapper {
         }
         
         Order order = new Order();
-        order.setId(orderDto.getId());
         order.setOrderTime(orderDto.getOrderTime() != null ? orderDto.getOrderTime() : LocalDateTime.now());
         order.setStatus(orderDto.getStatus() != null ? orderDto.getStatus() : "NEW");
         
@@ -42,7 +40,6 @@ public class OrderMapper {
         }
         
         OrderDto orderDto = new OrderDto();
-        orderDto.setId(order.getId());
         orderDto.setOrderTime(order.getOrderTime());
         orderDto.setStatus(order.getStatus());
         
@@ -51,14 +48,8 @@ public class OrderMapper {
             orderDto.setWaiterId(order.getWaiter().getId());
         }
         
-        // Pass through the food, drink, and dessert IDs from the input DTO
-        // Since we're not implementing actual repository lookups,
-        // we'll keep the original IDs from the request
-        List<String> emptyList = new ArrayList<>();
-        orderDto.setFoodIds(emptyList);
-        orderDto.setDrinkIds(emptyList);
-        orderDto.setDessertIds(emptyList);
-        
+        // We're not setting the IDs lists here, as they should be set from the controller
+        // with the original values from the request
         return orderDto;
     }
 }
