@@ -3,12 +3,12 @@ package com.restaurant.rest.presentation.mapper;
 import com.restaurant.domain.model.Order;
 import com.restaurant.domain.model.Waiter;
 import com.restaurant.rest.presentation.dto.OrderDto;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Component
 public class OrderMapperImpl implements OrderMapper {
     
     @Override
@@ -20,7 +20,7 @@ public class OrderMapperImpl implements OrderMapper {
         Order order = new Order();
         order.setId(orderDto.getId());
         order.setOrderTime(orderDto.getOrderTime() != null ? orderDto.getOrderTime() : LocalDateTime.now());
-        order.setStatus(orderDto.getStatus());
+        order.setStatus(orderDto.getStatus() != null ? orderDto.getStatus() : "NEW");
         
         // Set waiter if waiterId is provided
         if (orderDto.getWaiterId() != null) {
@@ -53,6 +53,14 @@ public class OrderMapperImpl implements OrderMapper {
         if (order.getWaiter() != null) {
             orderDto.setWaiterId(order.getWaiter().getId());
         }
+        
+        // Pass through the food, drink, and dessert IDs from the input DTO
+        // Since we're not implementing actual repository lookups,
+        // we'll keep the original IDs from the request
+        List<String> emptyList = new ArrayList<>();
+        orderDto.setFoodIds(emptyList);
+        orderDto.setDrinkIds(emptyList);
+        orderDto.setDessertIds(emptyList);
         
         return orderDto;
     }

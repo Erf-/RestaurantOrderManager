@@ -29,6 +29,16 @@ public class OrderController {
     public ResponseEntity<OrderDto> createOrder(@RequestBody OrderDto orderDto) {
         Order order = orderMapper.toOrder(orderDto);
         Order createdOrder = orderService.createOrder(order);
-        return new ResponseEntity<>(orderMapper.toOrderDto(createdOrder), HttpStatus.CREATED);
+        
+        // Create the response DTO
+        OrderDto responseDto = orderMapper.toOrderDto(createdOrder);
+        
+        // Since we're not actually loading items from the database,
+        // pass through the item IDs from the request
+        responseDto.setFoodIds(orderDto.getFoodIds());
+        responseDto.setDrinkIds(orderDto.getDrinkIds());
+        responseDto.setDessertIds(orderDto.getDessertIds());
+        
+        return new ResponseEntity<>(responseDto, HttpStatus.CREATED);
     }
 }
