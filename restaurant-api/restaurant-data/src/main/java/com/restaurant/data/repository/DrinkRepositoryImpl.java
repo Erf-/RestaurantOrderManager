@@ -1,11 +1,8 @@
 package com.restaurant.data.repository;
 
-import com.restaurant.domain.model.Drink;
 import com.restaurant.domain.repository.DrinkRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -13,21 +10,15 @@ import java.util.concurrent.ConcurrentMap;
 @Repository
 public class DrinkRepositoryImpl implements DrinkRepository {
 
-    private final ConcurrentMap<String, Drink> drinkStore = new ConcurrentHashMap<>();
-    
+    private final ConcurrentMap<String, Integer> drinkStore = new ConcurrentHashMap<>();
+
     @Override
-    public Optional<Drink> findById(String id) {
-        return Optional.ofNullable(drinkStore.get(id));
+    public boolean isAvailable(String name) {
+        return Optional.ofNullable(drinkStore.get(name)).orElse(0) >= 0;
     }
 
     @Override
-    public List<Drink> findAll() {
-        return new ArrayList<>(drinkStore.values());
-    }
-
-    @Override
-    public Drink save(Drink drink) {
-        drinkStore.put(drink.getId(), drink);
-        return drink;
+    public void decrement(String name) {
+        drinkStore.computeIfPresent(name, (k, v) -> --v);
     }
 }

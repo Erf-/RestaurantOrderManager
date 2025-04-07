@@ -1,13 +1,13 @@
 package com.restaurant.domain.model;
 
-import com.restaurant.domain.repository.DessertRepository;
+import com.restaurant.domain.repository.MealRepository;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-public class Dessert implements OrderItem {
+public class Meal implements OrderItem {
 
     private final String name;
-    private final DessertRepository repository;
+    private final MealRepository repository;
 
     @Override
     public String name() {

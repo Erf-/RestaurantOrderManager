@@ -1,22 +1,24 @@
 package com.restaurant.domain.model;
 
+import lombok.RequiredArgsConstructor;
+
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+
+@RequiredArgsConstructor
 public class Barman {
-    private String id;
-    private String name;
-    
-    public String getId() {
-        return id;
-    }
-    
-    public void setId(String id) {
-        this.id = id;
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
+
+    private final ExecutorService executorService;
+
+    public CompletableFuture<Drink> prepare(Drink drink) {
+        CompletableFuture<Drink> completableFuture = new CompletableFuture<>();
+
+        executorService.submit(() -> {
+            Thread.sleep(500);
+            completableFuture.complete(drink);
+            return null;
+        });
+
+        return completableFuture;
     }
 }
