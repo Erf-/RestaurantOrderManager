@@ -1,21 +1,15 @@
 package com.restaurant.domain.model;
 
 import com.restaurant.domain.repository.MealRepository;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class Meal implements OrderItem {
+public class Meal extends OrderItem {
 
-    private final String name;
-    private final MealRepository repository;
-
-    @Override
-    public String name() {
-        return name;
+    public Meal(String name, MealRepository repository) {
+        super(name, repository);
     }
 
     @Override
-    public boolean isAvailable() {
-        return repository.isAvailable(name);
+    public void doPrepare() {
+        System.out.println("Preparing Meal " + name);
     }
 }

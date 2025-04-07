@@ -1,4 +1,6 @@
 module restaurant.service {
+    exports com.restaurant.service;
+    requires restaurant.domain;
     requires static lombok;
 
     // service layer: thin layer that only displays what the domain can do.

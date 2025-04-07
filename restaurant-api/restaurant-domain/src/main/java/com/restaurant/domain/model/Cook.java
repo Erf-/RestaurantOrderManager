@@ -14,6 +14,7 @@ public class Cook {
         CompletableFuture<Meal> completableFuture = new CompletableFuture<>();
 
         executorService.submit(() -> {
+            meal.prepare();
             Thread.sleep(500);
             completableFuture.complete(meal);
             return null;

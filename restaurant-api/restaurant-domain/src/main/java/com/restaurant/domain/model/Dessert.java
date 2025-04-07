@@ -1,21 +1,10 @@
 package com.restaurant.domain.model;
 
 import com.restaurant.domain.repository.DessertRepository;
-import lombok.RequiredArgsConstructor;
 
-@RequiredArgsConstructor
-public class Dessert implements OrderItem {
+public class Dessert extends OrderItem {
 
-    private final String name;
-    private final DessertRepository repository;
-
-    @Override
-    public String name() {
-        return name;
-    }
-
-    @Override
-    public boolean isAvailable() {
-        return repository.isAvailable(name);
+    public Dessert(String name, DessertRepository repository) {
+        super(name, repository);
     }
 }

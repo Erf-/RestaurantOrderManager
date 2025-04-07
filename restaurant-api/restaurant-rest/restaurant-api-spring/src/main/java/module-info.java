@@ -1,6 +1,7 @@
 module restaurant.api.spring {
     requires restaurant.presentation;
     requires restaurant.service;
+    requires restaurant.domain;
     requires spring.beans;
     requires spring.boot;
     requires spring.boot.autoconfigure;
