@@ -1,5 +1,6 @@
 module restaurant.presentation {
     exports com.restaurant.rest.presentation.mapper;
+    exports com.restaurant.rest.presentation.dto;
     requires restaurant.domain;
     requires static lombok;
 
