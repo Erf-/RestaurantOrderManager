@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Restaurant API Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .container {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, button {
+            margin-bottom: 10px;
+            padding: 8px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 10px 15px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #response {
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Restaurant API Demo</h1>
+    
+    <div class="container">
+        <h2>Create New Order</h2>
+        <form id="orderForm">
+            <label for="waiterId">Waiter ID:</label>
+            <input type="text" id="waiterId" name="waiterId" value="waiter1">
+            
+            <label for="foodIds">Food IDs (comma separated):</label>
+            <input type="text" id="foodIds" name="foodIds" value="food1,food2">
+            
+            <label for="drinkIds">Drink IDs (comma separated):</label>
+            <input type="text" id="drinkIds" name="drinkIds" value="drink1">
+            
+            <label for="dessertIds">Dessert IDs (comma separated):</label>
+            <input type="text" id="dessertIds" name="dessertIds" value="dessert1">
+            
+            <label for="status">Status:</label>
+            <input type="text" id="status" name="status" value="NEW">
+            
+            <button type="submit">Create Order</button>
+        </form>
+    </div>
+    
+    <div class="container">
+        <h2>Response:</h2>
+        <pre id="response"></pre>
+    </div>
+    
+    <script>
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const waiterId = document.getElementById('waiterId').value;
+            const foodIds = document.getElementById('foodIds').value.split(',').map(item => item.trim());
+            const drinkIds = document.getElementById('drinkIds').value.split(',').map(item => item.trim());
+            const dessertIds = document.getElementById('dessertIds').value.split(',').map(item => item.trim());
+            const status = document.getElementById('status').value;
+            
+            const orderData = {
+                waiterId: waiterId,
+                foodIds: foodIds,
+                drinkIds: drinkIds,
+                dessertIds: dessertIds,
+                status: status
+            };
+            
+            fetch('/api/orders', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(orderData)
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+            })
+            .catch(error => {
+                document.getElementById('response').textContent = 'Error: ' + error.message;
+            });
+        });
+    </script>
+</body>
+</html>

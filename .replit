@@ -1,0 +1,56 @@
+modules = ["java", "java-21"]
+
+[nix]
+channel = "stable-24_05"
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Restaurant API Server"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "build_and_run_restaurant_api"
+
+[[workflows.workflow]]
+name = "Restaurant API Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd restaurant-api && mvn clean install && cd restaurant-rest/restaurant-api-spring && mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-Dserver.port=5000\""
+waitForPort = 5000
+
+[[workflows.workflow]]
+name = "build_and_run_restaurant_api"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd restaurant-api && mvn clean install && java -jar restaurant-rest/restaurant-api-spring/target/restaurant-api-spring-1.0-SNAPSHOT.jar"
+
+[deployment]
+run = ["sh", "-c", "cd restaurant-api && mvn clean install && cd restaurant-rest/restaurant-api-spring && mvn spring-boot:run -Dspring-boot.run.jvmArguments=\"-Dserver.port=5000\""]
+
+[[ports]]
+localPort = 5000
+externalPort = 80
