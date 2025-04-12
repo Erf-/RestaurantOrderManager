@@ -21,4 +21,8 @@ public class DrinkRepositoryImpl implements DrinkRepository {
     public void decrement(String name) {
         drinkStore.computeIfPresent(name, (k, v) -> --v);
     }
+
+    public DrinkRepositoryImpl() {
+        this.drinkStore.put("soda", 1);
+    }
 }

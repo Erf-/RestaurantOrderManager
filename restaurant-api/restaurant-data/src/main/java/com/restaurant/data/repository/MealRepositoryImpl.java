@@ -21,4 +21,8 @@ public class MealRepositoryImpl implements MealRepository {
     public void decrement(String name) {
         stocks.computeIfPresent(name, (k, v) -> --v);
     }
+
+    public MealRepositoryImpl() {
+        this.stocks.put("soup", 1);
+    }
 }

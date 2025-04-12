@@ -21,4 +21,8 @@ public class DessertRepositoryImpl implements DessertRepository {
     public void decrement(String name) {
         dessertStore.computeIfPresent(name, (k, v) -> --v);
     }
+
+    public DessertRepositoryImpl() {
+        this.dessertStore.put("brownie", 1);
+    }
 }
