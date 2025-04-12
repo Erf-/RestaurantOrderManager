@@ -14,7 +14,7 @@ public class MealRepositoryImpl implements MealRepository {
 
     @Override
     public boolean isAvailable(String name) {
-        return Optional.ofNullable(stocks.get(name)).orElse(0) >= 0;
+        return Optional.ofNullable(stocks.get(name)).orElse(0) > 0;
     }
 
     @Override

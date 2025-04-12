@@ -14,6 +14,7 @@ public class Barman {
         CompletableFuture<Drink> completableFuture = new CompletableFuture<>();
 
         executorService.submit(() -> {
+            drink.prepare();
             Thread.sleep(500);
             completableFuture.complete(drink);
             return null;

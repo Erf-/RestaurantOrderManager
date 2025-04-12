@@ -14,7 +14,7 @@ public class DrinkRepositoryImpl implements DrinkRepository {
 
     @Override
     public boolean isAvailable(String name) {
-        return Optional.ofNullable(drinkStore.get(name)).orElse(0) >= 0;
+        return Optional.ofNullable(drinkStore.get(name)).orElse(0) > 0;
     }
 
     @Override
