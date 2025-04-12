@@ -29,6 +29,10 @@ public class Waiter {
     }
 
     private void serve(OrderItem item) {
+        if (item instanceof Dessert) {
+            item.prepare();
+        }
+
         System.out.println(item.name() + " served!");
     }
 }

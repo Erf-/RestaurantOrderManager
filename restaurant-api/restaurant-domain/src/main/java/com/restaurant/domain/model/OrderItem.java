@@ -7,6 +7,7 @@ public abstract class OrderItem {
 
     protected final String name;
     private final OrderItemRepository repository;
+    private Boolean isAvailable;
 
     protected OrderItem(String name, OrderItemRepository repository) {
         this.name = name;
@@ -18,7 +19,10 @@ public abstract class OrderItem {
     }
 
     public final boolean isAvailable() {
-        return repository.isAvailable(name);
+        if (isAvailable == null) {
+            isAvailable = repository.isAvailable(name);
+        }
+        return isAvailable;
     }
 
     // skeleton pattern
