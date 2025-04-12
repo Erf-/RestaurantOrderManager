@@ -2,6 +2,8 @@ package com.restaurant.domain.model;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collection;
+
 @RequiredArgsConstructor
 public class Waiter {
 
@@ -12,18 +14,18 @@ public class Waiter {
         boolean isEveryItemAvailable = isEveryItemAvailable(order);
 
         if (isEveryItemAvailable) {
-            order.meals().forEach(meal -> cook.prepare(meal).thenAccept(this::serve));
-            order.drinks().forEach(drink -> barman.prepare(drink).thenAccept(this::serve));
-            order.desserts().forEach(this::serve);
+            order.meals().ifPresent(meals -> meals.forEach(meal -> cook.prepare(meal).thenAccept(this::serve)));
+            order.drinks().ifPresent(drinks -> drinks.forEach(drink -> barman.prepare(drink).thenAccept(this::serve)));
+            order.desserts().ifPresent(desserts -> desserts.forEach(this::serve));
         }
 
         return order;
     }
 
     private boolean isEveryItemAvailable(Order order) {
-        return order.drinks().stream().allMatch(Drink::isAvailable) &&
-                order.meals().stream().allMatch(Meal::isAvailable) &&
-                order.desserts().stream().allMatch(Dessert::isAvailable);
+        return order.drinks().stream().flatMap(Collection::stream).allMatch(Drink::isAvailable) &&
+                order.meals().stream().flatMap(Collection::stream).allMatch(Meal::isAvailable) &&
+                order.desserts().stream().flatMap(Collection::stream).allMatch(Dessert::isAvailable);
     }
 
     private void serve(OrderItem item) {

@@ -51,21 +51,15 @@
     <div class="container">
         <h2>Create New Order</h2>
         <form id="orderForm">
-            <label for="waiterId">Waiter ID:</label>
-            <input type="text" id="waiterId" name="waiterId" value="waiter1">
-            
-            <label for="foodIds">Food IDs (comma separated):</label>
-            <input type="text" id="foodIds" name="foodIds" value="food1,food2">
-            
-            <label for="drinkIds">Drink IDs (comma separated):</label>
-            <input type="text" id="drinkIds" name="drinkIds" value="drink1">
-            
-            <label for="dessertIds">Dessert IDs (comma separated):</label>
-            <input type="text" id="dessertIds" name="dessertIds" value="dessert1">
-            
-            <label for="status">Status:</label>
-            <input type="text" id="status" name="status" value="NEW">
-            
+            <label for="meals">Food IDs (comma separated):</label>
+            <input type="text" id="meals" name="meals" value="meal1,meal2">
+
+            <label for="drinks">Drink IDs (comma separated):</label>
+            <input type="text" id="drinks" name="drinks" value="drink1">
+
+            <label for="desserts">Dessert IDs (comma separated):</label>
+            <input type="text" id="desserts" name="desserts" value="dessert1">
+
             <button type="submit">Create Order</button>
         </form>
     </div>
@@ -79,18 +73,14 @@
         document.getElementById('orderForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const waiterId = document.getElementById('waiterId').value;
-            const foodIds = document.getElementById('foodIds').value.split(',').map(item => item.trim());
-            const drinkIds = document.getElementById('drinkIds').value.split(',').map(item => item.trim());
-            const dessertIds = document.getElementById('dessertIds').value.split(',').map(item => item.trim());
-            const status = document.getElementById('status').value;
-            
+            const meals = document.getElementById('meals').value.split(',').map(item => item.trim());
+            const drinks = document.getElementById('drinks').value.split(',').map(item => item.trim());
+            const desserts = document.getElementById('desserts').value.split(',').map(item => item.trim());
+
             const orderData = {
-                waiterId: waiterId,
-                foodIds: foodIds,
-                drinkIds: drinkIds,
-                dessertIds: dessertIds,
-                status: status
+                meals: meals,
+                drinks: drinks,
+                desserts: desserts,
             };
             
             fetch('/api/orders', {

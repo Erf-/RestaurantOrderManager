@@ -3,6 +3,8 @@ package com.restaurant.rest.presentation.mapper;
 import com.restaurant.domain.model.Order;
 import com.restaurant.rest.presentation.dto.OrderDTO;
 
+import java.util.Optional;
+
 public final class OrderMapper {
 
     private final DrinkMapper drinkMapper;
@@ -17,15 +19,15 @@ public final class OrderMapper {
 
     public Order toDomain(OrderDTO orderDTO) {
         return new Order(
-                drinkMapper.toDomain(orderDTO.drinks()),
-                mealMapper.toDomain(orderDTO.meals()),
-                dessertMapper.toDomain(orderDTO.desserts()));
+                Optional.ofNullable(orderDTO.drinks()).map(drinkMapper::toDomain),
+                Optional.ofNullable(orderDTO.meals()).map(mealMapper::toDomain),
+                Optional.ofNullable(orderDTO.desserts()).map(dessertMapper::toDomain));
     }
     
     public OrderDTO toDTO(Order order) {
         return new OrderDTO(
-                drinkMapper.toDTO(order.drinks()),
-                mealMapper.toDTO(order.meals()),
-                dessertMapper.toDTO(order.desserts()));
+                order.drinks().map(drinkMapper::toDTO).orElse(null),
+                order.meals().map(mealMapper::toDTO).orElse(null),
+                order.desserts().map(dessertMapper::toDTO).orElse(null));
     }
 }
